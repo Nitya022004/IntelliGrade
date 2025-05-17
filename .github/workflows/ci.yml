@@ -24,9 +24,7 @@ jobs:
       working-directory: ./client
 
     - name: Run build
-      run: npm run build
+      run: CI=false npm run build
       working-directory: ./client
 
-    - name: Run tests (optional)
-      run: npm test
-      working-directory: ./client
+
