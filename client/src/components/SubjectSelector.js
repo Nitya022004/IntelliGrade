@@ -1,22 +1,20 @@
 import React from "react";
 
-function SubjectSelector({ subjects, selected, setSelected }) {
+const SubjectSelector = ({ subjects, selected, setSelected }) => {
   return (
-    <div>
-      <label>Select Subject:</label>
-      <select
-        value={selected}
-        onChange={(e) => setSelected(e.target.value)}
-      >
-        <option value="">-- Choose --</option>
-        {subjects.map((subj, index) => (
-          <option key={index} value={subj}>
-            {subj}
-          </option>
-        ))}
-      </select>
-    </div>
+    <select
+      className="border px-4 py-2"
+      value={selected}
+      onChange={(e) => setSelected(e.target.value)}
+    >
+      <option value="">Select Subject</option>
+      {subjects.map((subj, idx) => (
+        <option key={idx} value={subj}>
+          {subj}
+        </option>
+      ))}
+    </select>
   );
-}
+};
 
 export default SubjectSelector;

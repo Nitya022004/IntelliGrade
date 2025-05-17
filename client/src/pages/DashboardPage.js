@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
+import "../styles/DashboardPage.css";
 
 const DashboardPage = () => {
   const teacher = localStorage.getItem("teacher");
@@ -8,12 +9,10 @@ const DashboardPage = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="p-10">
-        <h2 className="text-3xl font-bold mb-2">Welcome, {teacher} 👋</h2>
-        <p className="text-lg text-gray-700">
-          You are currently managing the subject: <strong>{subject}</strong>.
-        </p>
-        <p className="mt-4 text-md">
+      <div className="dashboard-container">
+        <h2 className="dashboard-title">Welcome, {teacher} 👋</h2>
+        <p className="dashboard-subject">You are currently managing the subject: <strong>{subject}</strong>.</p>
+        <p className="dashboard-note">
           Use the sidebar to view student marks, analyze performance, or update your profile.
         </p>
       </div>

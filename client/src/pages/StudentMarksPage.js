@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import axios from 'axios';
+import "../styles/StudentMarksPage.css";
 
 const StudentMarksPage = () => {
   const subject = localStorage.getItem('subject');
@@ -121,7 +122,7 @@ const StudentMarksPage = () => {
         </div>
 
         {/* 📋 Student Table */}
-        <table className="w-full border-collapse border border-gray-300">
+        <table className="student-table w-full border-collapse border border-gray-300">
           <thead className="bg-gray-200 text-center">
             <tr>
               <th>Roll No</th>

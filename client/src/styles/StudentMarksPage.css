@@ -1,0 +1,37 @@
+.student-page-container {
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.student-page-title {
+  font-size: 1.8rem;
+  color: #f1732a;
+  margin-bottom: 1rem;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.student-table th, .student-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.student-table th {
+  background-color: #b02758;
+  color: white;
+}
+
+.student-table td button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

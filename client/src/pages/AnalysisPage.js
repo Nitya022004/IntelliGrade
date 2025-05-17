@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
+import "../styles/AnalysisPage.css";
+
+
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import {
@@ -16,7 +19,6 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A020F0", "#FF6666", "#00BFFF", "#90EE90", "#FF1493"];
-
 const GRADE_ORDER = ["O", "A+", "A", "B+", "B", "C+", "C", "PASS", "FAIL"];
 
 const AnalysisPage = () => {
@@ -85,11 +87,11 @@ const AnalysisPage = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="p-6 flex-1">
+      <div className="analysis-container">
         <h2 className="text-2xl font-bold mb-6">{subject} - Performance Analysis</h2>
 
         <div ref={chartRef}>
-          <div className="flex flex-wrap gap-10 mb-10">
+          <div className="chart-group">
             {/* PIE CHART */}
             <div>
               <h3 className="font-semibold mb-2">Grade Distribution</h3>
@@ -124,11 +126,7 @@ const AnalysisPage = () => {
           </div>
         </div>
 
-        {/* EXPORT BUTTON */}
-        <button
-          onClick={downloadPDF}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
+        <button onClick={downloadPDF} className="export-btn">
           📥 Export as PDF
         </button>
       </div>

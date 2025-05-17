@@ -14,6 +14,7 @@ app.use(express.json());
 const teacherRoutes = require('./routes/teacherRoutes');
 app.use('/api/teacher', teacherRoutes);
 
+
 const studentRoutes = require('./routes/studentRoutes');
 app.use('/api/students', studentRoutes);
 

@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
+import "../styles/ProfilePage.css";
 
 const ProfilePage = () => {
   const teacher = localStorage.getItem("teacher");
@@ -8,7 +9,7 @@ const ProfilePage = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="p-10">
+      <div className="profile-container">
         <h2 className="text-2xl font-bold mb-4">👤 Teacher Profile</h2>
         <p><strong>Name:</strong> {teacher}</p>
         <p><strong>Subject:</strong> {subject}</p>

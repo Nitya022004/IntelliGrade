@@ -1,0 +1,27 @@
+.analysis-container {
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.chart-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-box {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.download-button {
+  padding: 10px 20px;
+  background-color: #dc267f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
