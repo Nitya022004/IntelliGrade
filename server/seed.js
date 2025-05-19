@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Teacher = require('./models/Teacher');
 const StudentReport = require('./models/StudentReport');
 
 mongoose.connect('mongodb://localhost:27017/gradescope', {
@@ -7,48 +8,44 @@ mongoose.connect('mongodb://localhost:27017/gradescope', {
 });
 
 const seed = async () => {
-  await StudentReport.deleteMany({ subject: "OS" }); // optional cleanup
+  await mongoose.connection.dropDatabase(); // Clear old data
 
-  await StudentReport.insertMany([
-    {
-      studentName: "Anusha",
-      rollNo: "23MCA004",
-      subject: "OS",
-      teacher: "Viji",
-      marks: {
-        cie1: 24,
-        cie2: 23,
-        external: 72,
-      },
-      semester: "Even 2025",
-    },
-    {
-      studentName: "Riya",
-      rollNo: "23MCA009",
-      subject: "OS",
-      teacher: "Viji",
-      marks: {
-        cie1: 18,
-        cie2: 20,
-        external: 62,
-      },
-      semester: "Even 2025",
-    },
-    {
-      studentName: "Meena",
-      rollNo: "23MCA012",
-      subject: "OS",
-      teacher: "Viji",
-      marks: {
-        cie1: 20,
-        cie2: 19,
-        external: 78,
-      },
-      semester: "Even 2025",
-    },
-  ]);
+  const teachers = [
+    { name: "Neha", password: "neha123", subjects: ["AI", "ML"] },
+    { name: "Viji", password: "viji123", subjects: ["OS", "DBMS"] },
+    { name: "Shalini", password: "shalini123", subjects: ["CN", "SE"] },
+  ];
 
-  console.log("✅ Seeded OS students");
+  await Teacher.insertMany(teachers);
+
+  const studentData = [];
+
+  const generateStudents = (subject, teacher) => {
+    const names = ["Asha", "Ravi", "Meena", "Karan", "Pooja"];
+    const rollPrefix = subject.slice(0, 2).toUpperCase();
+    return names.map((name, i) => ({
+      studentName: name,
+      rollNo: `23MCA${rollPrefix}${i + 1}`,
+      subject,
+      teacher,
+      marks: {
+        cie1: Math.floor(Math.random() * 25),
+        cie2: Math.floor(Math.random() * 25),
+        external: Math.floor(Math.random() * 75) + 25,
+      },
+      semester: "Even 2025",
+    }));
+  };
+
+  teachers.forEach(t => {
+    t.subjects.forEach(sub => {
+      studentData.push(...generateStudents(sub, t.name));
+    });
+  });
+
+  await StudentReport.insertMany(studentData);
+
+  console.log("✅ Fresh data seeded: 3 teachers, 6 subjects, 30 students");
   mongoose.disconnect();
 };
 
