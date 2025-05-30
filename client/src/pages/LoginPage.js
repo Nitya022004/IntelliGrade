@@ -33,7 +33,7 @@ function LoginPage() {
     <div className="login-wrapper">
       <div className="login-card">
         <img src="/logo.png" alt="College Logo" className="login-logo" />
-        <h1 className="login-heading">MR RAMAIAH INSTITUTE OF TECHNOLOGY</h1>
+        <h1 className="login-heading">MS RAMAIAH INSTITUTE OF TECHNOLOGY</h1>
 
         {!isLoggedIn ? (
           <div className="login-form">
