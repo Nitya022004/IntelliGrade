@@ -52,8 +52,3 @@ project_structure:
   - server/: "Express backend + seed script"
   - docker-compose.yml: "Compose config"
   - .env: "Mongo URI & port"
-
-author:
-  name: "Nityashree R"
-  semester: "6th Sem CSE"
-  college: "MR Ramaiah Institute of Technology"
