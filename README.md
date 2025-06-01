@@ -83,3 +83,5 @@ client/               → React frontend
 server/               → Express backend + seed script  
 docker-compose.yml    → Compose config  
 .env                  → Mongo URI & port  
+
+done.
