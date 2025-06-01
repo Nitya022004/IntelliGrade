@@ -1,6 +1,7 @@
 .student-page-container {
   padding: 2rem;
   font-family: sans-serif;
+  margin-top: 80px; /* so it doesn't get hidden behind navbar */
 }
 
 .student-page-title {
@@ -18,7 +19,8 @@
   overflow: hidden;
 }
 
-.student-table th, .student-table td {
+.student-table th,
+.student-table td {
   padding: 12px;
   text-align: center;
   border-bottom: 1px solid #eee;

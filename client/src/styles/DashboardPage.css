@@ -1,9 +1,14 @@
-.dashboard-container {
-  padding: 2rem;
-  font-family: sans-serif;
+.dashboard-page-wrapper {
   background-color: #fff7f5;
-  width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 80px; /* account for navbar height */
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .dashboard-title {
@@ -22,4 +27,5 @@
 .dashboard-note {
   font-size: 1rem;
   color: #666;
+  line-height: 1.6;
 }

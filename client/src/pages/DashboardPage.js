@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 import "../styles/DashboardPage.css";
 
 const DashboardPage = () => {
@@ -7,13 +7,15 @@ const DashboardPage = () => {
   const subject = localStorage.getItem("subject");
 
   return (
-    <div className="flex">
-      <Sidebar />
+    <div className="dashboard-page-wrapper">
+      <Navbar />
       <div className="dashboard-container">
         <h2 className="dashboard-title">Welcome, {teacher} 👋</h2>
-        <p className="dashboard-subject">You are currently managing the subject: <strong>{subject}</strong>.</p>
+        <p className="dashboard-subject">
+          You are currently managing the subject: <strong>{subject}</strong>.
+        </p>
         <p className="dashboard-note">
-          Use the sidebar to view student marks, analyze performance, or update your profile.
+          Use the navigation bar to view student marks, analyze performance, or update your profile.
         </p>
       </div>
     </div>

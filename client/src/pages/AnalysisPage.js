@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "../styles/AnalysisPage.css";
+import Navbar from "../components/Navbar";
 
-
-import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import {
   PieChart,
@@ -86,7 +85,7 @@ const AnalysisPage = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <Navbar />
       <div className="analysis-container">
         <h2 className="text-2xl font-bold mb-6">{subject} - Performance Analysis</h2>
 

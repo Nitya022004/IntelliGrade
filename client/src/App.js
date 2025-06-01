@@ -16,7 +16,7 @@ function App() {
 
         {/* Sidebar Pages */}
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/dashboard/students" element={<StudentMarksPage />} />
+        <Route path="/dashboard/marks" element={<StudentMarksPage />} />
         <Route path="/dashboard/analysis" element={<AnalysisPage />} />
         <Route path="/dashboard/profile" element={<ProfilePage />} />
         <Route path="/dashboard/overview" element={<DashboardOverviewPage />} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 import axios from 'axios';
 import "../styles/StudentMarksPage.css";
 
@@ -52,7 +52,7 @@ const StudentMarksPage = () => {
 
   const saveEdit = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/students/${id}`, {
+      await axios.put(`http://localhost:5000/api/students/${id}`, {
         marks: editData,
       });
       setStudents((prev) =>
@@ -69,8 +69,8 @@ const StudentMarksPage = () => {
       const payload = {
         rollNo: newStudent.rollNo,
         studentName: newStudent.studentName,
-        subject: subject,
-        teacher: teacher,
+        subject,
+        teacher,
         semester: "Even 2025",
         marks: {
           cie1: parseInt(newStudent.cie1),
@@ -78,7 +78,6 @@ const StudentMarksPage = () => {
           external: parseInt(newStudent.external)
         }
       };
-
       const res = await axios.post("http://localhost:5000/api/students", payload);
       setStudents([...students, res.data]);
       setNewStudent({ rollNo: "", studentName: "", cie1: "", cie2: "", external: "" });
@@ -88,10 +87,10 @@ const StudentMarksPage = () => {
   };
 
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="p-6 flex-1">
-        <h2 className="text-2xl font-bold mb-4">{subject} - Student Marks</h2>
+    <div>
+      <Navbar />
+      <div className="student-page-container">
+        <h2 className="student-page-title">{subject} - Student Marks</h2>
 
         {/* ➕ Add Student Form */}
         <div className="mb-6 p-4 border rounded shadow w-fit bg-gray-100">
@@ -122,8 +121,8 @@ const StudentMarksPage = () => {
         </div>
 
         {/* 📋 Student Table */}
-        <table className="student-table w-full border-collapse border border-gray-300">
-          <thead className="bg-gray-200 text-center">
+        <table className="student-table">
+          <thead>
             <tr>
               <th>Roll No</th>
               <th>Name</th>
@@ -147,7 +146,7 @@ const StudentMarksPage = () => {
               const editedGrade = getGrade(editedFinal);
 
               return (
-                <tr key={idx} className="text-center border-b">
+                <tr key={idx}>
                   <td>{s.rollNo}</td>
                   <td>{s.studentName}</td>
 
