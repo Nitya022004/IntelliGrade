@@ -8,13 +8,14 @@ const StudentMarksPage = () => {
   const teacher = localStorage.getItem('teacher');
   const [students, setStudents] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [editData, setEditData] = useState({ cie1: 0, cie2: 0, external: 0 });
+  const [editData, setEditData] = useState({ cie1: 0, cie2: 0, external: 0, final: 0 });
   const [newStudent, setNewStudent] = useState({
     rollNo: '',
     studentName: '',
     cie1: '',
     cie2: '',
-    external: ''
+    external: '',
+    final: ''
   });
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const StudentMarksPage = () => {
 
   const cancelEdit = () => {
     setEditingId(null);
-    setEditData({ cie1: 0, cie2: 0, external: 0 });
+    setEditData({ cie1: 0, cie2: 0, external: 0, final: 0 });
   };
 
   const saveEdit = async (id) => {
@@ -56,7 +57,9 @@ const StudentMarksPage = () => {
         marks: editData,
       });
       setStudents((prev) =>
-        prev.map((s) => (s._id === id ? { ...s, marks: editData } : s))
+        prev.map((s) =>
+          s._id === id ? { ...s, marks: editData } : s
+        )
       );
       cancelEdit();
     } catch (err) {
@@ -75,15 +78,33 @@ const StudentMarksPage = () => {
         marks: {
           cie1: parseInt(newStudent.cie1),
           cie2: parseInt(newStudent.cie2),
-          external: parseInt(newStudent.external)
+          external: parseInt(newStudent.external),
+          final: parseInt(newStudent.final)
         }
       };
       const res = await axios.post("http://localhost:5000/api/students", payload);
       setStudents([...students, res.data]);
-      setNewStudent({ rollNo: "", studentName: "", cie1: "", cie2: "", external: "" });
+      setNewStudent({ rollNo: "", studentName: "", cie1: "", cie2: "", external: "", final: "" });
     } catch (err) {
       alert("Failed to add student.");
     }
+  };
+
+  const calculateFinalScore = (cie1, cie2, external, finalExam) => {
+    const cieAvg = (parseFloat(cie1) + parseFloat(cie2)) / 2;
+    return cieAvg + parseFloat(external) + (parseFloat(finalExam) / 2);
+  };
+
+  const getGrade = (score) => {
+    if (score >= 90) return "O";
+    if (score >= 80) return "A+";
+    if (score >= 70) return "A";
+    if (score >= 60) return "B+";
+    if (score >= 50) return "B";
+    if (score >= 40) return "C+";
+    if (score >= 35) return "C";
+    if (score >= 30) return "PASS";
+    return "FAIL";
   };
 
   return (
@@ -92,7 +113,6 @@ const StudentMarksPage = () => {
       <div className="student-page-container">
         <h2 className="student-page-title">{subject} - Student Marks</h2>
 
-        {/* ➕ Add Student Form */}
         <div className="mb-6 p-4 border rounded shadow w-fit bg-gray-100">
           <h3 className="text-lg font-semibold mb-2">Add New Student</h3>
           <input placeholder="Roll No" className="border px-2 mr-2 mb-2"
@@ -115,12 +135,15 @@ const StudentMarksPage = () => {
             value={newStudent.external}
             onChange={(e) => setNewStudent({ ...newStudent, external: e.target.value })}
           />
+          <input placeholder="Final" type="number" className="border px-2 mr-2 mb-2"
+            value={newStudent.final}
+            onChange={(e) => setNewStudent({ ...newStudent, final: e.target.value })}
+          />
           <button onClick={handleAddStudent} className="bg-blue-600 text-white px-4 py-1 rounded">
             ➕ Add
           </button>
         </div>
 
-        {/* 📋 Student Table */}
         <table className="student-table">
           <thead>
             <tr>
@@ -137,52 +160,25 @@ const StudentMarksPage = () => {
           <tbody>
             {students.map((s, idx) => {
               const isEditing = editingId === s._id;
-              const final = s.marks.cie1 + s.marks.cie2 + s.marks.external / 2;
-              const grade = getGrade(final);
-              const editedFinal =
-                parseInt(editData.cie1) +
-                parseInt(editData.cie2) +
-                parseInt(editData.external) / 2;
-              const editedGrade = getGrade(editedFinal);
+              const finalScore = calculateFinalScore(s.marks.cie1, s.marks.cie2, s.marks.external, s.marks.final || 0);
+              const grade = getGrade(finalScore);
+              const editedFinalScore = calculateFinalScore(editData.cie1, editData.cie2, editData.external, editData.final || 0);
+              const editedGrade = getGrade(editedFinalScore);
 
               return (
                 <tr key={idx}>
                   <td>{s.rollNo}</td>
                   <td>{s.studentName}</td>
-
                   {isEditing ? (
                     <>
-                      <td>
-                        <input
-                          value={editData.cie1}
-                          onChange={(e) =>
-                            setEditData({ ...editData, cie1: e.target.value })
-                          }
-                        />
-                      </td>
-                      <td>
-                        <input
-                          value={editData.cie2}
-                          onChange={(e) =>
-                            setEditData({ ...editData, cie2: e.target.value })
-                          }
-                        />
-                      </td>
-                      <td>
-                        <input
-                          value={editData.external}
-                          onChange={(e) =>
-                            setEditData({ ...editData, external: e.target.value })
-                          }
-                        />
-                      </td>
-                      <td>{editedFinal}</td>
+                      <td><input value={editData.cie1} onChange={(e) => setEditData({ ...editData, cie1: e.target.value })} /></td>
+                      <td><input value={editData.cie2} onChange={(e) => setEditData({ ...editData, cie2: e.target.value })} /></td>
+                      <td><input value={editData.external} onChange={(e) => setEditData({ ...editData, external: e.target.value })} /></td>
+                      <td><input value={editData.final} onChange={(e) => setEditData({ ...editData, final: e.target.value })} /></td>
                       <td>{editedGrade}</td>
                       <td>
                         <button onClick={() => saveEdit(s._id)}>✅</button>
-                        <button onClick={cancelEdit} style={{ color: "orange" }}>
-                          ❌
-                        </button>
+                        <button onClick={cancelEdit} style={{ color: "orange" }}>❌</button>
                       </td>
                     </>
                   ) : (
@@ -190,16 +186,11 @@ const StudentMarksPage = () => {
                       <td>{s.marks.cie1}</td>
                       <td>{s.marks.cie2}</td>
                       <td>{s.marks.external}</td>
-                      <td>{final}</td>
+                      <td>{s.marks.final || 0}</td>
                       <td>{grade}</td>
                       <td>
                         <button onClick={() => startEdit(s)}>✏️</button>
-                        <button
-                          onClick={() => handleDelete(s._id)}
-                          style={{ color: "red" }}
-                        >
-                          ❌
-                        </button>
+                        <button onClick={() => handleDelete(s._id)} style={{ color: "red" }}>❌</button>
                       </td>
                     </>
                   )}
@@ -212,17 +203,5 @@ const StudentMarksPage = () => {
     </div>
   );
 };
-
-function getGrade(final) {
-  if (final >= 90) return "O";
-  if (final >= 80) return "A+";
-  if (final >= 70) return "A";
-  if (final >= 60) return "B+";
-  if (final >= 50) return "B";
-  if (final >= 40) return "C+";
-  if (final >= 35) return "C";
-  if (final >= 30) return "PASS";
-  return "FAIL";
-}
 
 export default StudentMarksPage;
