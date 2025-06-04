@@ -57,9 +57,7 @@ const StudentMarksPage = () => {
         marks: editData,
       });
       setStudents((prev) =>
-        prev.map((s) =>
-          s._id === id ? { ...s, marks: editData } : s
-        )
+        prev.map((s) => (s._id === id ? { ...s, marks: editData } : s))
       );
       cancelEdit();
     } catch (err) {
@@ -117,29 +115,23 @@ const StudentMarksPage = () => {
           <h3 className="text-lg font-semibold mb-2">Add New Student</h3>
           <input placeholder="Roll No" className="border px-2 mr-2 mb-2"
             value={newStudent.rollNo}
-            onChange={(e) => setNewStudent({ ...newStudent, rollNo: e.target.value })}
-          />
+            onChange={(e) => setNewStudent({ ...newStudent, rollNo: e.target.value })} />
           <input placeholder="Name" className="border px-2 mr-2 mb-2"
             value={newStudent.studentName}
-            onChange={(e) => setNewStudent({ ...newStudent, studentName: e.target.value })}
-          />
+            onChange={(e) => setNewStudent({ ...newStudent, studentName: e.target.value })} />
           <input placeholder="CIE 1" type="number" className="border px-2 mr-2 mb-2"
             value={newStudent.cie1}
-            onChange={(e) => setNewStudent({ ...newStudent, cie1: e.target.value })}
-          />
+            onChange={(e) => setNewStudent({ ...newStudent, cie1: e.target.value })} />
           <input placeholder="CIE 2" type="number" className="border px-2 mr-2 mb-2"
             value={newStudent.cie2}
-            onChange={(e) => setNewStudent({ ...newStudent, cie2: e.target.value })}
-          />
+            onChange={(e) => setNewStudent({ ...newStudent, cie2: e.target.value })} />
           <input placeholder="External" type="number" className="border px-2 mr-2 mb-2"
             value={newStudent.external}
-            onChange={(e) => setNewStudent({ ...newStudent, external: e.target.value })}
-          />
+            onChange={(e) => setNewStudent({ ...newStudent, external: e.target.value })} />
           <input placeholder="Final" type="number" className="border px-2 mr-2 mb-2"
             value={newStudent.final}
-            onChange={(e) => setNewStudent({ ...newStudent, final: e.target.value })}
-          />
-          <button onClick={handleAddStudent} className="bg-blue-600 text-white px-4 py-1 rounded">
+            onChange={(e) => setNewStudent({ ...newStudent, final: e.target.value })} />
+          <button onClick={handleAddStudent} className="bg-purple-600 text-white px-4 py-1 rounded">
             ➕ Add
           </button>
         </div>
