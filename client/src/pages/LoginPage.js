@@ -1,7 +1,6 @@
 // LoginPage.js (Replace your existing LoginPage with this one)
 import React, { useState } from "react";
 import axios from "../axios";
-
 import SubjectSelector from "../components/SubjectSelector";
 import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css"; // CSS import
@@ -16,7 +15,7 @@ function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("/api/teacher/login", { name, password });
+      const res = await axios.post("http://localhost:5000/api/teacher/login", { name, password });
       setSubjects(res.data.teacher.subjects);
       setIsLoggedIn(true);
     } catch (err) {

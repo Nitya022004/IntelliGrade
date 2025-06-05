@@ -21,7 +21,7 @@ const StudentMarksPage = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const res = await axios.get(`/api/students/${subject}`);
+        const res = await axios.get(`http://localhost:5000/api/students/${subject}`);
         setStudents(res.data);
       } catch (err) {
         console.error(err);
@@ -33,7 +33,7 @@ const StudentMarksPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure to delete?")) {
       try {
-        await axios.delete(`/api/students/${id}`);
+        await axios.delete(`http://localhost:5000/api/students/${id}`);
         setStudents((prev) => prev.filter((s) => s._id !== id));
       } catch (err) {
         alert("Failed to delete student.");
@@ -53,8 +53,7 @@ const StudentMarksPage = () => {
 
   const saveEdit = async (id) => {
     try {
-      await axios.put(`/api/students/${id}`, {
-
+      await axios.put(`http://localhost:5000/api/students/${id}`, {
         marks: editData,
       });
       setStudents((prev) =>
@@ -81,7 +80,7 @@ const StudentMarksPage = () => {
           final: parseInt(newStudent.final)
         }
       };
-      const res =await axios.post("/api/students", payload);
+      const res = await axios.post("http://localhost:5000/api/students", payload);
       setStudents([...students, res.data]);
       setNewStudent({ rollNo: "", studentName: "", cie1: "", cie2: "", external: "", final: "" });
     } catch (err) {
