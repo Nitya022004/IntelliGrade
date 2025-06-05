@@ -15,7 +15,7 @@ function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/teacher/login", { name, password });
+      const res =await axios.post("/api/teacher/login", { name, password });
       setSubjects(res.data.teacher.subjects);
       setIsLoggedIn(true);
     } catch (err) {
