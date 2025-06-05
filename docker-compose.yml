@@ -1,16 +1,35 @@
-version: "3.9"
+version: '3.9'
+
 services:
+  mongo:
+    image: mongo
+    container_name: gradescope-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
   backend:
-    build:
-      context: ./server      # 👈 backend folder
+    build: ./server
+    container_name: intelligrade-backend
     ports:
       - "5000:5000"
-    volumes:
-      - ./server:/app
-    command: node server.js
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://gradescope-mongo:27017/gradescope
+    stdin_open: true
+    tty: true
 
   frontend:
-    build:
-      context: ./client
+    build: ./client
+    container_name: intelligrade-frontend
     ports:
       - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
