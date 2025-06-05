@@ -1,125 +1,74 @@
-title: "IntelliGrade 🎓📊"
-description: "A MERN stack-based teacher dashboard to track student performance, visualize results, and automate deployment with Docker and CI/CD."
+project:
+  name: IntelliGrade 🎓
+  description: >
+    IntelliGrade is a full-stack MERN (MongoDB, Express, React, Node.js) web application built for teachers to manage and analyze student performance data with CI/CD integration using GitHub Actions, Jenkins, Docker, and SonarQube.
 
 features:
-  - Teacher Login with subject access
-  - View subject-wise marks
-  - Pie charts and grade analysis
-  - Filter by subject and grade
-  - Data seeding with sample teachers/students
-  - Dockerized backend & frontend
-  - CI/CD with GitHub Actions and Jenkins
+  - 👩‍🏫 Teacher login and subject selection
+  - 📝 Student marks entry (CIE1, CIE2, External, Final)
+  - 📊 Grade calculation and performance visualization
+  - 📈 Pass percentage comparison with previous years
+  - 🖨️ Export charts and reports as PDF
+  - 🔐 Secured with JWT and environment-based secrets
+  - ☁️ Deployed using Docker and Render
+  - ✅ Code quality analysis via SonarQube
 
 tech_stack:
-  frontend: "React + Tailwind CSS"
-  backend: "Node.js + Express"
-  database: "MongoDB (external)"
-  visualization: "Chart.js"
-  ci_cd: "GitHub Actions & Jenkins"
-  deployment: "Docker & Docker Compose"
+  frontend: React + Tailwind CSS
+  backend: Node.js + Express.js
+  database: MongoDB Atlas
+  cicd: GitHub Actions + Jenkins
+  containerization: Docker, Docker Hub
+  code_quality: SonarQube (local/cloud)
+  deployment: Render
 
-run_locally:
-  step_1_start_mongodb: |
-    mongod
-  step_2_seed_data:
-    - cd server
-    - node seed.js
-    - .env_mongo_uri_local: "mongodb://localhost:27017/gradescope"
-    - .env_mongo_uri_docker: "mongodb://host.docker.internal:27017/gradescope"
-  step_3_run_app:
-    - cd IntelliGrade
-    - sudo docker-compose up
-    - open: "http://localhost:3000"
+deployment:
+  env_variables:
+    backend:
+      MONGO_URI: "<your MongoDB URI>"
+      JWT_SECRET: "<your secret>"
+      PORT: "5000"
+    frontend:
+      REACT_APP_API_URL: "https://intelligrade-backend.onrender.com"
 
-sample_teachers:
-  - name: "Neha"
-    password: "neha123"
-  - name: "Viji"
-    password: "viji123"
-  - name: "Shalini"
-    password: "shalini123"
+local_setup:
+  steps:
+    - Clone the repo:
+        - git clone https://github.com/Nitya022004/IntelliGrade.git
+        - cd IntelliGrade
+    - Install dependencies:
+        - npm install
+        - cd client && npm install
+    - MongoDB:
+        - Use local MongoDB or Atlas
+    - Seed database:
+        - node seed.js
+    - Start servers:
+        - node server.js # in root
+        - npm start # in /client
 
-docker_hub:
-  backend: "https://hub.docker.com/r/nitya222/intelligrade-backend"
-  frontend: "https://hub.docker.com/r/nitya222/intelligrade-frontend"
+docker:
+  local:
+    - docker-compose build
+    - docker-compose up
 
-ci_cd:
-  github_actions: "Auto build on push"
-  jenkins: "Local build job via webhook or polling"
+cicd_flow:
+  - GitHub Actions runs tests & triggers Jenkins
+  - Jenkins runs SonarQube scan + builds Docker images
+  - Docker images are pushed to Docker Hub
+  - Render pulls latest image & redeploys
 
-project_structure:
-  - client/: "React frontend"
-  - server/: "Express backend + seed script"
-  - docker-compose.yml: "Compose config"
-  - .env: "Mongo URI & port"
+sample_output:
+  note: Sample screenshots or reports available on request
 
-HEAD
----
-
-## 🧪 Run Locally
-
-### 1. Start MongoDB
-
-```bash
-mongod
-2. (Only once) Seed data
-bash
-Copy
-Edit
-cd server
-node seed.js
-Make sure your .env file has:
-
-bash
-Copy
-Edit
-MONGO_URI=mongodb://localhost:27017/gradescope
-Then switch back .env to:
-
-bash
-Copy
-Edit
-MONGO_URI=mongodb://host.docker.internal:27017/gradescope
-3. Run App
-bash
-Copy
-Edit
-cd IntelliGrade
-sudo docker-compose up
-Open: http://localhost:3000
-
-👨‍🏫 Sample Teachers
-Name	Password
-Neha	neha123
-Viji	viji123
-Shalini	shalini123
-
-🐳 Docker Hub
-Backend: nitya222/intelligrade-backend
-
-Frontend: nitya222/intelligrade-frontend
-
-⚙️ CI/CD
-GitHub Actions: Auto build on push
-
-Jenkins: Local build job via webhook or polling
-
-📁 Project Structure
-arduino
-Copy
-Edit
-client/               → React frontend  
-server/               → Express backend + seed script  
-docker-compose.yml    → Compose config  
-.env                  → Mongo URI & port  
-
-done.
-=======
 author:
-  name: "Nityashree R"
-  semester: "6th Sem CSE"
-  college: "MR Ramaiah Institute of Technology"
->>>>>>> recover-detached
+  name: Nitya
+  github: "@Nitya022004"
 
+license: MIT
 
-//demo
+notes:
+  - Let me know if you need:
+    - Version with build badges (CI, Docker, SonarCloud)
+    - SonarCloud code quality badge
+    - Academic-style formatted report
