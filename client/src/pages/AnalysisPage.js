@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import "../styles/AnalysisPage.css";
 import Navbar from "../components/Navbar";
 
-import axios from "../../axios";
+import axios from "../axios";
+
 import {
   PieChart,
   Pie,
